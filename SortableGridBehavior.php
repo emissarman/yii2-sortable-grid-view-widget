@@ -69,11 +69,11 @@ class SortableGridBehavior extends Behavior
                 /** @var ActiveRecord[] $models */
                 $models[$modelId]->updateAttributes([$this->sortableAttribute => $orderValue]);
             }
+            
+            if (is_callable($this->afterGridSort)) {
+                call_user_func($this->afterGridSort, $models[$modelId]);
+            }
         });
-
-        if (is_callable($this->afterGridSort)) {
-            call_user_func($this->afterGridSort, $model);
-        }
     }
 
     public function beforeInsert()
